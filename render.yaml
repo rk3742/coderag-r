@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: coderag-r-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: HF_MODEL
+        value: all-MiniLM-L6-v2
+      - key: CHROMA_PERSIST_DIR
+        value: ./data/chroma
+      - key: REPOS_DIR
+        value: ./data/repos
+      - key: MAX_TOKENS
+        value: "1500"
+      - key: TEMPERATURE
+        value: "0.1"
+      - key: TOP_K_RETRIEVAL
+        value: "8"
