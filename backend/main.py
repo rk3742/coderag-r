@@ -5,16 +5,11 @@ import uvicorn
 from routers import repos, query, graph, eval, reindex
 
 app = FastAPI(title="CodeRAG-R API", version="1.0.0")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "https://coderag-r-n5t9.vercel.app",
-        "https://coderag-r.vercel.app",
-        "https://*.vercel.app",
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
