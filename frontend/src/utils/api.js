@@ -71,3 +71,6 @@ export const api = {
     return () => controller.abort()
   },
 }
+setInterval(() => {
+  fetch(`${BASE.replace('/api', '')}/health`).catch(() => {})
+}, 10 * 60 * 1000)
