@@ -24,9 +24,15 @@ async def upload_zip(file: UploadFile = File(...), name: str = Form(...)):
     if not file.filename.endswith(".zip"):
         raise HTTPException(400, "Only .zip files are supported")
     tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".zip")
-    tmp.write(await file.read())
-    tmp.close()
-    return await get_indexer().index_from_zip(tmp.name, name)
+    try:
+        tmp.write(await file.read())
+        tmp.close()
+        return await get_indexer().index_from_zip(tmp.name, name)
+    finally:
+        try:
+            os.unlink(tmp.name)
+        except OSError:
+            pass
 
 
 @router.get("/{repo_id}")
