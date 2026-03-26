@@ -149,7 +149,7 @@ class IncrementalIndexer:
             for i, meta in enumerate(result["metadatas"]):
                 chunk_file = meta.get("file", "")
                 for fp in file_paths:
-                    if chunk_file and chunk_file in fp:
+                    if chunk_file and (fp.endswith(os.sep + chunk_file) or fp == chunk_file):
                         ids_to_delete.append(result["ids"][i])
                         break
             if ids_to_delete:

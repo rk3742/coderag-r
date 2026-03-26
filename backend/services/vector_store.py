@@ -20,7 +20,7 @@ class VectorStore:
         self._model: SentenceTransformer = None
         self._collections: Dict[str, chromadb.Collection] = {}
 
-    def _model_(self) -> SentenceTransformer:
+    def _get_model(self) -> SentenceTransformer:
         if self._model is None:
             print(f"[VectorStore] Loading {settings.hf_model}...")
             self._model = SentenceTransformer(settings.hf_model)
@@ -39,7 +39,7 @@ class VectorStore:
         if not chunks:
             return
         col = self._collection(repo_id)
-        model = self._model_()
+        model = self._get_model()
         texts = [c.to_embedding_text() for c in chunks]
         print(f"[VectorStore] Embedding {len(texts)} chunks...")
         embeddings = model.encode(texts, batch_size=32, show_progress_bar=True).tolist()
@@ -67,7 +67,7 @@ class VectorStore:
         count = col.count()
         if count == 0:
             return []
-        model = self._model_()
+        model = self._get_model()
         emb = model.encode([query]).tolist()
         res = col.query(
             query_embeddings=emb,

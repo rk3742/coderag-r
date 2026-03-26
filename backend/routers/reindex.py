@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, BackgroundTasks
 from pydantic import BaseModel
 from services.incremental_indexer import get_incremental_indexer
 from services.indexer import get_indexer
+from services.vector_store import VectorStore
 from pathlib import Path
 from config import settings
 
@@ -32,7 +33,7 @@ async def re_index(body: ReIndexRequest, background_tasks: BackgroundTasks):
         result  = await inc.re_index(
             repo_id=body.repo_id,
             repo_path=repo_path,
-            vector_store=inc.parser and __import__('services.vector_store', fromlist=['VectorStore']).VectorStore(),
+            vector_store=VectorStore(),
             graph_store=graph,
             summary_path=summary_path,
             cache_path=cache_path,
