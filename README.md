@@ -115,5 +115,3 @@ coderag_r/
 [LinkedIn](https://linkedin.com/in/kona-rithik-sai-kumar-147432292) · konarithiksai@gmail.com
 
 
-
-BUILD BY KONA RITHIK SAI KUMAR
